@@ -6,47 +6,36 @@ export default function Home() {
   const [domain, setDomain] = useState("");
 
   useEffect(() => {
-    setDomain(window.location.hostname);
+    if (typeof window !== "undefined") {
+      setDomain(window.location.hostname);
+    }
   }, []);
 
   return (
     <>
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
         * {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
-          font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-
-        a {
-          text-decoration: none;
-          color: gray;
-        }
-
-        a:hover {
-          text-decoration: underline;
+          font-family: "Poppins", sans-serif;
         }
 
         .wrapper {
           width: 100%;
-          height: 100vh;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
 
         .box-wrapper {
-          height: 100%;
+          flex: 1;
           display: flex;
-          padding: 1rem;
-          justify-content: center;
-          align-items: center;
-          background: rgb(255, 236, 251);
+          flex-direction: row;
+          padding: 2rem;
           background: linear-gradient(
             120deg,
             rgb(255, 238, 252) 0%,
@@ -54,72 +43,116 @@ export default function Home() {
             rgb(255, 245, 222) 100%
           );
           border-radius: 1rem;
+          gap: 2rem;
         }
 
         .left-container {
-          width: 55%;
-          height: 70%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 1rem;
         }
 
         .right-container {
-          padding: 2rem;
-          width: 45%;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem;
         }
 
         .right-container img {
           width: 100%;
-          max-height: auto;
-        }
-
-        .content {
-          padding: 1rem;
+          height: auto;
+          max-width: 500px;
         }
 
         .title {
-          font-size: 2.6rem;
+          font-size: 2.5rem;
           font-weight: 600;
-          margin: 1rem 0;
+          color: #333;
+          margin-bottom: 1rem;
         }
 
-        .footer {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          padding: 0.7rem;
-          text-align: center;
-          font-weight: 500;
-          box-shadow: 0 -1px 5px 5px rgba(128, 128, 128, 0.1);
-          z-index: 1;
-          background-color: white;
+        .description {
+          font-size: 1.2rem;
+          color: #555;
+          margin-bottom: 1.5rem;
         }
 
         .contact-info {
-          padding: 1rem;
-          display: flex;
-          justify-content: start;
-          align-items: start;
-          gap: 2rem;
+          font-size: 1rem;
+          color: #444;
         }
 
-        /* media queries */
-        @media only screen and (max-width: 768px) {
-          html {
-            font-size: 62.5%;
+        .contact-info a {
+          color: gray;
+          text-decoration: none;
+        }
+
+        .contact-info a:hover {
+          text-decoration: underline;
+        }
+
+        .footer {
+          width: 100%;
+          padding: 1rem;
+          text-align: center;
+          background-color: white;
+          font-size: 0.95rem;
+          font-weight: 500;
+          box-shadow: 0 -1px 5px rgba(128, 128, 128, 0.1);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+          .title {
+            font-size: 2.2rem;
           }
 
+          .description {
+            font-size: 1.1rem;
+          }
+        }
+
+        @media (max-width: 768px) {
           .box-wrapper {
             flex-direction: column;
+            padding: 1rem;
           }
 
+          .right-container,
           .left-container {
             width: 100%;
-            height: 40%;
           }
 
-          .right-container {
-            width: 100%;
-            height: 60%;
+          .title {
+            font-size: 1.8rem;
+            text-align: center;
+          }
+
+          .description,
+          .contact-info {
+            text-align: center;
+          }
+
+          .right-container img {
+            max-width: 300px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .title {
+            font-size: 1.6rem;
+          }
+
+          .description {
+            font-size: 1rem;
+          }
+
+          .footer {
+            font-size: 0.85rem;
           }
         }
       `}</style>
@@ -127,43 +160,38 @@ export default function Home() {
       <section className="wrapper">
         <div className="box-wrapper">
           <div className="left-container">
-            <div className="content">
-              <p className="title">
-                www.<span className="domain-text">{domain}</span> <br />
-                Under Maintenance.
-              </p>
-              <p className="description">
-                We apologize for any inconvenience caused, but our website is
-                currently undergoing scheduled maintenance to enhance your
-                browsing experience.
-              </p>
-            </div>
+            <p className="title">
+              www.<span className="domain-text">{domain}</span> <br />
+              Under Maintenance
+            </p>
+            <p className="description">
+              We apologize for any inconvenience caused. Our website is
+              currently undergoing scheduled maintenance to enhance your
+              experience.
+            </p>
             <div className="contact-info">
-              <div className="email">
-                <strong>Email</strong> <br />
-                <a href="mailto:hello@rsinfotechsys.com">
-                  hello@rsinfotechsys.com
-                </a>
-              </div>
+              <strong>Email:</strong> <br />
+              <a href="mailto:hello@rsinfotechsys.com">
+                hello@rsinfotechsys.com
+              </a>
             </div>
           </div>
+
           <div className="right-container">
             <img
               src="/image/MAINTENANCE.png"
-              alt="under maintenance"
+              alt="Under Maintenance Illustration"
               loading="lazy"
             />
           </div>
         </div>
+
         <div className="footer">
-          <p>
-            © 2023 All Rights Reserved by <span>{domain}</span> <span>
-              Designed & Developed By{' '}
-              <a href="https://rsinfotechsys.com">
-                Right Serve Infotech System Pvt. Ltd.
-              </a>
-            </span>
-          </p>
+          © 2023 All Rights Reserved by <strong>{domain}</strong> | Designed &
+          Developed by{" "}
+          <a href="https://rsinfotechsys.com" target="_blank">
+            Right Serve Infotech System Pvt. Ltd.
+          </a>
         </div>
       </section>
     </>
